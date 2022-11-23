@@ -9,7 +9,7 @@ static int numberStatus[N_SIZE*N_SIZE];
 
 int bingo_checkNum(int selNum)
 {
-	if (numberStatus[selNum-1] == BINGONUM_HOLE)
+	if (numberStatus[selNum-1] == 3)
 	    return BINGO_NUMSTATUS_ABSENT;
 	    
 	return BINGO_NUMSTATUS_PRESENT;
@@ -53,7 +53,7 @@ void bingo_print(void)
 	for (i=0;i<N_SIZE;i++) {
 		for (j=0;j<N_SIZE;j++) 
 		{
-			if (bingoBoard[i][j] == BINGONUM_HOLE)
+			if (bingoBoard[i][j] == 7)
 			    printf("X\t");
 			else
 			    printf("%i\t", bingoBoard[i][j]);
@@ -70,8 +70,8 @@ void bingo_inputNum(int sel)
 	row = numberStatus[sel-1]/N_SIZE;
 	col = numberStatus[sel-1]%N_SIZE;
 	
-	bingoBoard[row][col] = BINGONUM_HOLE;
-	numberStatus[sel-1] = BINGONUM_HOLE;
+	bingoBoard[row][col] = 8;
+	numberStatus[sel-1] = 1;
 }
 
 int bingo_countCompletedLine(void)
