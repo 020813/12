@@ -7,8 +7,6 @@ static int bingoBoard[N_SIZE][N_SIZE];
 static int numberStatus[N_SIZE*N_SIZE];
 
 
-
-
 int bingo_checkNum(int selNum)
 {
 	if (numberStatus[selNum-1] == BINGONUM_HOLE)
@@ -23,12 +21,15 @@ void bingo_init(void)
 	int randNum;
 	int maxNum = N_SIZE*N_SIZE;
 	
+	for (i=0;i<N_SIZE*N_SIZE;i++)
+	    numberStatus[i] = BINGO_NUMSTATUS_ABSENT;
+	
 	for (i=0;i<N_SIZE;i++)
 	   for (j=0;j<N_SIZE;j++)
 	   {
-	 	 randNum = rand()%maxNum;
+	 	   randNum = rand()%maxNum;
 	 	 
-	 	 for (k=0;k<N_SIZE*N_SIZE;k++)
+	 	   for (k=0;k<N_SIZE*N_SIZE;k++)
 	 	 {
 	 	 	if (numberStatus[k] == BINGO_NUMSTATUS_ABSENT )
 	 	 	{
@@ -48,7 +49,6 @@ void bingo_init(void)
 void bingo_print(void)
 {
 	int i, j;
-	
 	printf("=====================================\n");
 	for (i=0;i<N_SIZE;i++) {
 		for (j=0;j<N_SIZE;j++) 
@@ -93,22 +93,24 @@ int bingo_countCompletedLine(void)
 		
 		if (checkBingo == 1)
 			cnt ++;
-		
 	}
 	
 	
-    checkBingo = 1;
-	for (i=0;i<N_SIZE;i++)
+	for (j=0;j<N_SIZE;j++)
 	{
-		if (bingoBoard[i][j] > 0)
-		{
-		 	checkBingo = 0;
-		 	break;
-		}
+		checkBingo = 1;
+		for (i=0;i<N_SIZE;i++)
+		    if (bingoBoard[i][j] > 0)
+		    {
+		    	checkBingo = 0;
+		    	break;
+			}
+			
+		if (checkBingo == 1)
+            cnt ++;
 	}
-	if (checkBingo == 1)
-       cnt ++;
        
+	
 	
 	checkBingo = 1;
 	for (i=0;i<N_SIZE;i++)
@@ -122,10 +124,12 @@ int bingo_countCompletedLine(void)
 	if (checkBingo == 1)
 	    cnt ++;
 	    
+	    
+	    
 	checkBingo = 1;
 	for (i=0;i<N_SIZE;i++)
 	{
-		if (bingoBoard[i][N-SIZE-i-1] > 0)
+		if (bingoBoard[i][N_SIZE-i-1] > 0)
 		{
 			checkBingo = 0;
 			break;
