@@ -26,7 +26,7 @@ int get_number(void)
 		scanf("%d", &selNum);
 		fflush(stdin);
 		
-		if (selNum < 1 || selNum > N_SIZE*N_SIZE || bingo_checkNum(selNum) == BINGO_NUMSTATUS_ABSENT);
+		if (selNum < 1 || selNum > N_SIZE*N_SIZE || bingo_checkNum(selNum) == BINGO_NUMSTATUS_ABSENT)
 		{
 			printf("%i is not on the board! select other one. \n", selNum);
 		}
@@ -36,6 +36,8 @@ int get_number(void)
 }
 
 int main(int argc, char *argv[]) {
+	
+	int selNum;
 	
 	srand ( (unsigned)(time(NULL)) );
 	
@@ -51,14 +53,13 @@ int main(int argc, char *argv[]) {
 	
 	bingo_init();
 	
-	
-	
 	//initialize bingo board
+	
 	
 	while (check_gameEnd() == BINGO_RES_UNFINISHED)
 	{
 		bingo_print();
-		print("No. of completed line : %i\n", bingo_countCompletedLine());
+		printf("No. of completed line : %i\n", bingo_countCompletedLine());
 		selNum = get_number();
 		
 		bingo_inputNum(selNum);
@@ -77,6 +78,8 @@ int main(int argc, char *argv[]) {
 	printf("                   YOU WIN!!!                     \n");
 	printf("**************************************************\n");
 	printf("==================================================\n\n");
+	
+	bingo_print();
 	
 	return 0;
 }
